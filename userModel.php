@@ -1,4 +1,5 @@
 <?php
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     require_once("dbModel.php");
     require_once("userDTO.php");
     class UserModel extends dbModel
@@ -27,7 +28,7 @@
         }
 
         public function get_user_name(string $user_name){
-            $result = $this->mysqli->query("CALL ".self::GET_USER_BY_NAME."(".$this->escape_string($user_name).")");
+            $result = $this->mysqli->query("CALL ".self::GET_USER_BY_NAME."('".$this->escape_string($user_name)."')");
 
             if ($row = $result->fetch_assoc()) {
                 return new UserDTO($row["id_user"], $row["first_name"], $row["last_name"]);
